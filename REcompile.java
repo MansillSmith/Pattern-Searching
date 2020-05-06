@@ -11,7 +11,7 @@ public class REcompile {
     public static void main(String[] args) {
         input = args[0];
 
-        if(isVocab(".")){
+        if(isVocab("\\")){
             System.err.println("BS");
         }
 
@@ -113,14 +113,7 @@ public class REcompile {
     private static int factor(){
         String c = getChar();
 
-        if(isVocab(c)){
-            System.err.println("...........");
-            setState(stateNumber, c, stateNumber + 1, stateNumber + 1);
-            pointer++;
-            stateNumber++;
-            return stateNumber - 1;
-        }
-        else if(c.equals(".")){
+        if(c.equals(".")){
             setState(stateNumber, "WC", stateNumber + 1, stateNumber + 1);
             pointer++;
             stateNumber++;
@@ -128,7 +121,7 @@ public class REcompile {
         }
         else if(c.equals("\\")){
             pointer++;
-            System.err.println("------------------");
+            
             if(!isVocab(getChar()) && !isSpecialChar(getChar())){
                 error();
             }
@@ -151,13 +144,15 @@ public class REcompile {
             return start;
         }
         else{
-            error();
-            return 0;
+            setState(stateNumber, c, stateNumber + 1, stateNumber + 1);
+            pointer++;
+            stateNumber++;
+            return stateNumber - 1;
         }        
     }
 
     private static boolean isVocab(String c){
-        if(c.matches("[a-zA-z]")){
+        if(c.matches("[a-zA-Z]")){
             return true;
         }else{
             return false;
