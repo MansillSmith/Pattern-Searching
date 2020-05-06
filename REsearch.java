@@ -6,7 +6,7 @@ Mansill Smith
 ID: 1341291
 
 Alex Grant
-ID: 
+ID: 1350168
 
 Accepts a Finite State Machine from REcomplile through standard input
 and a text file as an argument
@@ -60,7 +60,7 @@ public class REsearch{
 
                 input.close();
 
-                PrintList(characterMatchList, firstNextState, secondNextState);
+                //PrintList(characterMatchList, firstNextState, secondNextState);
 
                 int lineNumber = 0;
                 line = reader.readLine();
@@ -78,10 +78,10 @@ public class REsearch{
                     currentStates.push(0);
                     boolean found = false;
 
-                    while(!found && mark + pointer <= line.length()){
+                    while(!found && pointer <= line.length()){
 
                         //Loops through all of the states on the current states stack
-                        while(!found && mark + pointer <= line.length()){
+                        while(!found && pointer <= line.length()){
                             int s = 0;
                             try{
                                 s = currentStates.pop();
@@ -107,13 +107,13 @@ public class REsearch{
                                 //Gets the character as a character, as it cannot be a BR
                                 char characterToMatch = characterMatchList.get(s).charAt(0);
 
-                                try{
+                                if(pointer < line.length()){
                                     //If the character matches
                                     if(line.charAt(pointer) == characterToMatch){
                                         PushToStack(firstNextState.get(s), secondNextState.get(s), nextStates);
                                     }
                                 }
-                                catch(Exception e){
+                                else{
                                     break;
                                 }
                             }
@@ -124,6 +124,9 @@ public class REsearch{
                             //Reset the machine
                             mark++;
                             pointer = mark;
+
+                            //System.err.println(nextStates.empty() && currentStates.empty());
+                            //System.err.println(mark + ", " + pointer);
 
                             //Both stacks should be empty
                             currentStates.push(0);
