@@ -17,7 +17,7 @@ public class REcompile {
 
         updateState(0, start, start);
 
-        System.out.println(input);
+        System.err.println(input);
         printStates();
     }
 
@@ -43,6 +43,10 @@ public class REcompile {
         else if(getChar().equals("*")){
             pointer++;
 
+            if(pointer > input.length() - 1){
+                return s1;
+            }
+
             if(getChar().equals("*") || getChar().equals("?")){
                 error();
             }
@@ -54,6 +58,10 @@ public class REcompile {
         }
         else if(getChar().equals("?")){
             pointer++;
+
+            if(pointer > input.length() - 1){
+                return s1;
+            }
 
             if(getChar().equals("*") || getChar().equals("?")){
                 error();
@@ -68,6 +76,10 @@ public class REcompile {
         }
         else if(getChar().equals("|")){
             pointer++;
+
+            if(pointer > input.length() - 1){
+                return s1;
+            }
 
             if(getChar().equals("|") || getChar().equals("*") || getChar().equals("?")){
                 error();
@@ -101,8 +113,15 @@ public class REcompile {
     private static int factor(){
         String c = getChar();
 
-        if(isVocab(c) || c.equals(".")){
+        if(isVocab(c)){
+            System.out.println("...........");
             setState(stateNumber, c, stateNumber + 1, stateNumber + 1);
+            pointer++;
+            stateNumber++;
+            return stateNumber - 1;
+        }
+        else if(c.equals(".")){
+            setState(stateNumber, "WC", stateNumber + 1, stateNumber + 1);
             pointer++;
             stateNumber++;
             return stateNumber - 1;
