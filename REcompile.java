@@ -11,6 +11,10 @@ public class REcompile {
     public static void main(String[] args) {
         input = args[0];
 
+        if(isVocab(".")){
+            System.err.println("BS");
+        }
+
         stateStart.add(stateNumber);
         
         int start = expression();
@@ -114,7 +118,7 @@ public class REcompile {
         String c = getChar();
 
         if(isVocab(c)){
-            System.out.println("...........");
+            System.err.println("...........");
             setState(stateNumber, c, stateNumber + 1, stateNumber + 1);
             pointer++;
             stateNumber++;
@@ -128,7 +132,7 @@ public class REcompile {
         }
         else if(c.equals("\\")){
             pointer++;
-            System.out.println("------------------");
+            System.err.println("------------------");
             if(!isVocab(getChar()) && !isSpecialChar(getChar())){
                 error();
             }
