@@ -51,7 +51,7 @@ public class REcompile {
                 return s1;
             }
 
-            if(getChar().equals("*") || getChar().equals("?")){
+            if(pointer <= input.length() - 1 && (getChar().equals("*") || getChar().equals("?"))){
                 error();
             }
 
@@ -63,11 +63,7 @@ public class REcompile {
         else if(getChar().equals("?")){
             pointer++;
 
-            if(pointer > input.length() - 1){
-                return s1;
-            }
-
-            if(getChar().equals("*") || getChar().equals("?")){
+            if(pointer <= input.length() - 1 && (getChar().equals("*") || getChar().equals("?"))){
                 error();
             }
 
@@ -85,7 +81,7 @@ public class REcompile {
                 return s1;
             }
 
-            if(getChar().equals("|") || getChar().equals("*") || getChar().equals("?")){
+            if(pointer <= input.length() - 1 && (getChar().equals("*") || getChar().equals("?") || getChar().equals("|"))){
                 error();
             }
 
