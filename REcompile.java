@@ -11,24 +11,19 @@ public class REcompile {
     public static void main(String[] args) {
         input = args[0];
 
-        if(isVocab("\\")){
-            System.err.println("BS");
-        }
-
         stateStart.add(stateNumber);
         
         int start = expression();
 
         updateState(0, start, start);
-
-        System.err.println(input);
+        
         printStates();
     }
 
     private static int expression(){
         int start = term();
 
-        if((pointer <= input.length() - 1) && ((getChar().equals("(")) || (isVocab(getChar())))){
+        if(pointer <= input.length() - 1){
             expression();
         }
         else if(pointer > input.length() - 1){
@@ -121,7 +116,7 @@ public class REcompile {
         }
         else if(c.equals("\\")){
             pointer++;
-            
+
             setState(stateNumber, getChar(), stateNumber + 1, stateNumber + 1);
             stateNumber++;
             pointer++;
@@ -148,14 +143,6 @@ public class REcompile {
         }        
     }
 
-    private static boolean isVocab(String c){
-        if(c.matches("[a-zA-Z]")){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     private static boolean isSpecialChar(String c){
         if(c.equals(".") || c.equals("*") || c.equals("(") || c.equals(")") || c.equals("|")){
             return true;
@@ -173,7 +160,7 @@ public class REcompile {
     }
 
     private static void error(){
-        System.err.println("Custom Error");
+        System.err.println("Incorrect Regex Statement");
         System.exit(0);
     }
 
