@@ -104,6 +104,63 @@ public class REcompileTestDummyStates {
         }
         else if(getChar().equals("|")){
             pointer++;
+            int tempPointer = pointer - 1;
+            int tempStateNum = stateNumber - 1;
+            String s = getSpecificChar(tempPointer);
+            int closedBrackets = 0;
+
+            while(true){
+                if(tempPointer == 0){
+                    tempStateNum = 1;
+                    break;
+                }
+                else if(getSpecificChar(tempPointer - 1).equals("\\")){
+                    tempPointer -= 2;
+                    tempStateNum--;
+                }
+                else if(s.equals(")")){
+                    closedBrackets++;
+                    tempPointer--;
+                    
+                }
+                else if(s.equals("(")){
+                    if(closedBrackets == 0){
+                        tempStateNum++;
+                        break;
+                    }
+                    else{
+                        closedBrackets--;
+                        tempPointer--;
+                    }
+                }
+                else if(s.equals("|")){
+                    tempPointer--;
+                }
+                else{
+                    tempStateNum--;
+                    tempPointer--;
+                }
+
+                while(fsm.viewCharacter(tempStateNum).equals("BR")){
+                    tempStateNum--;
+                }
+
+                s = getSpecificChar(tempPointer);
+            }
+
+            int temp = stateNumber - 1;
+            int target = tempStateNum;  
+            while(temp >= target){
+                fsm.copyToNextIndex(temp);
+                temp--;
+            }
+            System.err.println("Temp: " + (temp + 1));
+            updateState(temp + 1, temp + 2, temp + 2, "BR");
+            //if(stateStart.size() == 1){
+            //    stateStart.set(0, stateStart.get(0) + 1);
+            //}
+            stateStart.set(stateStart.size() - 1, stateStart.get(stateStart.size() - 1) + 1);
+            
 
             //Set aside a dummy state that branches to the correct state
             int dummyState = stateNumber;
@@ -123,6 +180,7 @@ public class REcompileTestDummyStates {
                 updateState(stateStart.get(stateStart.size() - 1) - 1, branchState, branchState);
             }            
             updateState(dummyState, stateNumber, stateNumber);
+            updateState(temp + 1, branchState, branchState);
 
             if(pointer > input.length() - 1){
                 return s1;
