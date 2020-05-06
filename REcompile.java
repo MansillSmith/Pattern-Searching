@@ -122,12 +122,9 @@ public class REcompile {
         else if(c.equals("\\")){
             pointer++;
             
-            if(!isVocab(getChar()) && !isSpecialChar(getChar())){
-                error();
-            }
-            
             setState(stateNumber, getChar(), stateNumber + 1, stateNumber + 1);
             stateNumber++;
+            pointer++;
             return stateNumber - 1;
         }
         else if(c.equals("(")){
