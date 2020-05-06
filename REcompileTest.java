@@ -5,6 +5,7 @@ public class REcompileTest {
     static int pointer = 0;
     static int stateNumber = 1;
     static List<Integer> stateStart = new ArrayList<>();
+    static List<Integer> removedStates = new ArrayList<>();
 
     static FSM fsm = new FSM();
 
@@ -45,6 +46,15 @@ public class REcompileTest {
         else if(getChar().equals("*")){
             pointer++;
 
+            if(!getSpecificChar(pointer - 2).equals(")")){
+                updateState(stateNumber - 2, stateNumber, stateNumber);
+            }
+            else{
+                int target = removedStates.get(removedStates.size() - 1);
+
+                updateState(target - 1, stateNumber, stateNumber);
+            }
+
             setState(stateNumber, "BR", s1, stateNumber + 1);
             stateNumber++;
 
@@ -61,6 +71,15 @@ public class REcompileTest {
         else if(getChar().equals("?")){
             pointer++;
 
+            if(!getSpecificChar(pointer - 2).equals(")")){
+                updateState(stateNumber - 2, stateNumber, stateNumber);
+            }
+            else{
+                int target = removedStates.get(removedStates.size() - 1);
+
+                updateState(target - 1, stateNumber, stateNumber);
+            }
+
             if(pointer <= input.length() - 1 && (getChar().equals("*") || getChar().equals("?"))){
                 error();
             }
@@ -68,7 +87,7 @@ public class REcompileTest {
             setState(stateNumber, "BR", s1, stateNumber + 1);
             stateNumber++;
 
-            updateState(s1, stateNumber, stateNumber);
+            //updateState(s1, stateNumber, stateNumber);
 
             return stateNumber - 1;
         }
@@ -138,6 +157,7 @@ public class REcompileTest {
                 error();
             }
 
+            removedStates.add(stateStart.get(stateStart.size() - 1));
             stateStart.remove(stateStart.size() - 1);
             pointer++;
             return start;
