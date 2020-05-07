@@ -20,7 +20,6 @@ public class REcompileTest {
 
         updateState(0, start, start);
 
-        System.err.println(input);
         printStates();
     }
 
@@ -48,11 +47,9 @@ public class REcompileTest {
 
             if(!getSpecificChar(pointer - 2).equals(")")){
                 if(fsm.viewCharacter(stateNumber - 2).equals("BR")){
-                    System.err.println("IF");
                     updateSecondState(stateNumber - 2, stateNumber);
                 }
                 else{
-                    System.err.println("ELSE");
                     updateState(stateNumber - 2, stateNumber, stateNumber);
                 }
             }
@@ -61,9 +58,6 @@ public class REcompileTest {
 
                 updateState(target - 1, stateNumber, stateNumber);
             }
-
-            System.err.println(s1);
-            System.err.println(stateNumber);
             setState(stateNumber, "BR", s1, stateNumber + 1);
             stateNumber++;
 
@@ -82,11 +76,9 @@ public class REcompileTest {
 
             if(!getSpecificChar(pointer - 2).equals(")")){
                 if(fsm.viewCharacter(stateNumber - 2).equals("BR")){
-                    System.err.println("IF");
                     updateSecondState(stateNumber - 2, stateNumber);
                 }
                 else{
-                    System.err.println("ELSE");
                     updateState(stateNumber - 2, stateNumber, stateNumber);
                 }
                 
@@ -270,7 +262,7 @@ public class REcompileTest {
     }
 
     private static void error(){
-        System.err.println("Custom Error");
+        System.err.println("Incorrect Regex Expression");
         System.exit(0);
     }
 
@@ -307,7 +299,6 @@ public class REcompileTest {
                 next1.add(n1);
                 next2.add(n2);
             }else{
-                System.err.println(ch.size());
                 System.err.println("Adding Error");
             }
         }
