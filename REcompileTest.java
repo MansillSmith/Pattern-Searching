@@ -228,7 +228,7 @@ public class REcompileTest {
             }
             else if(s.equals("|")){
                 if(openBrackets == 0){
-                    startState = tempNumState + 1;
+                    startState = tempNumState + 2;
                     return startState;
                 }
                 else{
@@ -240,7 +240,7 @@ public class REcompileTest {
                 }
             }
             else if(tempPointer == 0){
-                return 1;
+                startState = 1;
             }
             else{
                 tempNumState++;
@@ -248,8 +248,7 @@ public class REcompileTest {
 
             tempPointer++;
         }
-
-        System.err.println(startState);
+        
         return startState;
     }
 
