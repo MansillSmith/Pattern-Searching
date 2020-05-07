@@ -60,8 +60,6 @@ public class REsearch{
 
                 input.close();
 
-                //PrintList(characterMatchList, firstNextState, secondNextState);
-
                 int lineNumber = 0;
                 line = reader.readLine();
                 //While there are more lines to read
@@ -89,13 +87,11 @@ public class REsearch{
                             catch(EmptyStackException e){
                                 break;
                             }
-                            //System.err.println(s);
-                            //System.err.println(characterMatchList.get(s));
+
                             //If the current state is a branching state
                             if(characterMatchList.get(s).equals("BR")){
                                 //Pushes the next states onto the current states
                                 PushToStack(firstNextState.get(s), secondNextState.get(s), currentStates);
-                                //System.err.println("BR, " + firstNextState.get(s));
 
                             }
                             //If the current state is the final state
@@ -128,9 +124,6 @@ public class REsearch{
                             mark++;
                             pointer = mark;
 
-                            //System.err.println(nextStates.empty() && currentStates.empty());
-                            //System.err.println(mark + ", " + pointer);
-
                             //Both stacks should be empty
                             currentStates.push(0);
                         }
@@ -162,13 +155,6 @@ public class REsearch{
     //Error statement
     private static void IncorrectInput(){
         System.err.println("Error: File not found");
-    }
-
-    private static void PrintList(ArrayList<String> a, ArrayList<Integer> b, ArrayList<Integer> c){
-        for(int i = 0; i < a.size(); i++){
-            System.err.println(a.get(i) + "," + b.get(i) + "," + c.get(i));
-        }
-        System.err.println();
     }
 
     //Pushes the two next possible states to the stack
