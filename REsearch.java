@@ -101,7 +101,10 @@ public class REsearch{
                             //If the current state is the final state
                             else if(characterMatchList.get(s).equals("FI")){
                                 found = true;
-                                //System.err.println("FOUND");
+                            }
+                            //If the current state is a wildcard state
+                            else if(characterMatchList.get(s).equals("WC")){
+                                PushToStack(firstNextState.get(s), secondNextState.get(s), nextStates);
                             }
                             else {
                                 //Gets the character as a character, as it cannot be a BR
