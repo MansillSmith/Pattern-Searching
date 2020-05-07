@@ -47,7 +47,14 @@ public class REcompileTest {
             pointer++;
 
             if(!getSpecificChar(pointer - 2).equals(")")){
-                updateState(stateNumber - 2, stateNumber, stateNumber);
+                if(fsm.viewCharacter(stateNumber - 2).equals("BR")){
+                    System.err.println("IF");
+                    updateSecondState(stateNumber - 2, stateNumber);
+                }
+                else{
+                    System.err.println("ELSE");
+                    updateState(stateNumber - 2, stateNumber, stateNumber);
+                }
             }
             else{
                 int target = removedStates.get(removedStates.size() - 1);
@@ -55,6 +62,8 @@ public class REcompileTest {
                 updateState(target - 1, stateNumber, stateNumber);
             }
 
+            System.err.println(s1);
+            System.err.println(stateNumber);
             setState(stateNumber, "BR", s1, stateNumber + 1);
             stateNumber++;
 
@@ -72,12 +81,20 @@ public class REcompileTest {
             pointer++;
 
             if(!getSpecificChar(pointer - 2).equals(")")){
-                updateState(stateNumber - 2, stateNumber, stateNumber);
+                if(fsm.viewCharacter(stateNumber - 2).equals("BR")){
+                    System.err.println("IF");
+                    updateSecondState(stateNumber - 2, stateNumber);
+                }
+                else{
+                    System.err.println("ELSE");
+                    updateState(stateNumber - 2, stateNumber, stateNumber);
+                }
+                
             }
             else{
                 int target = removedStates.get(removedStates.size() - 1);
 
-                updateState(target - 1, stateNumber, stateNumber);
+                updateState(target - 1, stateNumber, stateNumber);                
             }
 
             if(pointer <= input.length() - 1 && (getChar().equals("*") || getChar().equals("?"))){
@@ -248,7 +265,7 @@ public class REcompileTest {
 
             tempPointer++;
         }
-        
+
         return startState;
     }
 
@@ -267,6 +284,10 @@ public class REcompileTest {
 
     private static void updateState(int state, int n1, int n2){
         fsm.update(state, n1, n2);
+    }
+
+    private static void updateSecondState(int state, int n2){
+        fsm.updateSecondState(state, n2);
     }
 
     static class FSM{
@@ -298,6 +319,14 @@ public class REcompileTest {
                 next1.set(state, n1);
                 next2.set(state, n2);
             }            
+        }
+
+        public void updateSecondState(int state, int n2){
+            if(state > ch.size()){
+                System.err.println("Updating Error");
+            }else{
+                next2.set(state, n2);
+            }  
         }
 
         public void print(){
